@@ -8,7 +8,7 @@ use App\Exceptions\InvalidRequestException;
 
 class ProductsController extends Controller
 {
-        public function index(Request $request){
+    public function index(Request $request){
         //    创建一个查询构建器
         $builder=Product::query()->where('on_sale',true);
         // 判断是否有提交search参数，如果有就赋值给$search变量
@@ -52,6 +52,26 @@ class ProductsController extends Controller
         if(!$product->on_sale){
             throw new InvalidRequestException('商品未上架');
         }
-        return view('products.show',['product'=>$product]);
+        $favored=false;
+        // 用户未登陆时是null，已登陆时返回的是对应的用户对象
+        if($user=$request->user()){
+            // 从用户已收藏的商品中搜索Id为当前商品id的商品
+            // boolval()函数用户把值转为布尔值
+            $favored=boolval($user->favoriteProducts()->find($product->id));
+        }
+        return view('products.show',['product'=>$product,'favored'=> $favored]);
+    }
+    public function favor(Product $product,Request $request){
+        $user=$request->user();
+        if($user->favoriteProducts()->find($product->id)){
+            return [];
+        }
+        $user->favoriteProducts()->attach($product);
+        return [];
+    }
+    public function disfavor(Product $product,Request $request){
+        $user=$request->user(); 
+        $user->favoriteProducts()->detach($product);
+        return [];
     }
 }
