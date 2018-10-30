@@ -76,7 +76,10 @@
           axios.post('{{route('products.favor',['product'=>$product->id])}}')
                .then(function(){
                   // 请求成功
-                  swal('操作成功','','success');
+                  swal('操作成功','','success')
+                  .then(function(){
+                      location.reload();
+                  });
                },function(error){
                 //  请求失败
                 if(error.response && error.response.status === 401){
