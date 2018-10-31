@@ -82,7 +82,7 @@ class Order extends Model
         $prefix=date('YmdHis');
         for($i=0;$i<10;$i++){
             // 随机生成6位数字
-            $no=$profix.str_pad(random_int(0,999999),6,'0',STR_PAD_LEFT);
+            $no=$prefix.str_pad(random_int(0,999999),6,'0',STR_PAD_LEFT);
             // 判断是否已经存在
             if(!static::query()->where('no',$no)->exists()){
                 return $no;
