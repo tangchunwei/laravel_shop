@@ -19,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->text('remark')->nullable();
             $table->dateTime('paid_at')->nullable();
             $table->string('payment_method')->nullable();
-            $table->string('payment_to')->nullable();
+            $table->string('payment_no')->nullable();
             $table->string('refund_status')->default(\App\Models\Order::REFUND_STATUS_PENDING);
             $table->string('refund_no')->nullable();
             $table->boolean('closed')->default(false);
