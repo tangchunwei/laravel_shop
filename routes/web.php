@@ -42,8 +42,7 @@ Route::group(['middleware'=>'auth'],function(){
         Route::get('orders/{order}', 'OrdersController@show')->name('orders.show');
     });
 });
-// 测试
-Route::get('/test', 'TestController@index')->name('test');
 // 商品详情
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
-
+// 测试
+Route::get('/test', 'TestController@index')->name('test');
