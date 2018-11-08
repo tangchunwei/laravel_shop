@@ -83,7 +83,6 @@ class OrderController extends Controller
         //返回上一页
         return redirect()->back();
     }
-
     public function show(Order $order)
     {
         return Admin::content(function(Content $content) use ($order){
